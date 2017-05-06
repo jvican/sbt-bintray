@@ -99,8 +99,6 @@ object BintrayPlugin extends AutoPlugin {
     },
     bintrayEnsureBintrayPackageExists := ensurePackageTask.value,
     bintrayUnpublish := {
-      val e1 = bintrayEnsureBintrayPackageExists
-      val e2 = bintrayEnsureLicenses
       val repo = bintrayRepo.value
       repo.unpublish(bintrayPackage.value, version.value, sLog.value)
     },
