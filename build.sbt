@@ -2,7 +2,7 @@ lazy val unusedWarnings = Seq("-Ywarn-unused-import", "-Ywarn-unused")
 
 lazy val commonSettings: Seq[Setting[_]] = Seq(
     version in ThisBuild := "0.5.0",
-    organization in ThisBuild := "org.foundweekends",
+    organization in ThisBuild := "ch.epfl.scala",
     homepage in ThisBuild := Some(url(s"https://github.com/sbt/${name.value}/#readme")),
     licenses in ThisBuild := Seq("MIT" ->
       url(s"https://github.com/sbt/${name.value}/blob/${version.value}/LICENSE")),
@@ -17,10 +17,7 @@ lazy val commonSettings: Seq[Setting[_]] = Seq(
     scalacOptions ++= PartialFunction.condOpt(CrossVersion.partialVersion(scalaVersion.value)){
       case Some((2, v)) if v >= 11 => unusedWarnings
     }.toList.flatten,
-    publishArtifact in Test := false,
-    bintrayRepository := "sbt-plugin-releases",
-    bintrayOrganization := Some("sbt"),
-    bintrayPackage := "sbt-bintray"
+    publishArtifact in Test := false
   ) ++ Seq(Compile, Test).flatMap(c =>
     scalacOptions in (c, console) --= unusedWarnings
   )
@@ -36,7 +33,7 @@ lazy val root = (project in file("."))
       case Sbt1 => "2.12.2"
     }),
     libraryDependencies ++= Seq(
-      "org.foundweekends" %% "bintry" % "0.6.0",
+      "ch.epfl.scala" %% "bintry" % "0.6.0-RC",
       "org.slf4j" % "slf4j-nop" % "1.7.7"), // https://github.com/softprops/bintray-sbt/issues/26
     resolvers += Resolver.sonatypeRepo("releases"),
     ScriptedPlugin.scriptedSettings,
